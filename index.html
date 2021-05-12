@@ -176,6 +176,113 @@
 				<div class="post-text">
 					<div class="post-title" id="post-title-index">			
 						
+	<a href="/2021/05/12/notes/network/Computer-Network/" itemprop="url">
+		Computer-Network
+	</a>
+
+					</div>
+
+					<div class="post-content">
+						
+							TCPTCP（Transmission Control Protocol 传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议。TCP通过校验和、序列号、确认应答、重发控制、连接管理以及窗口控制等机制实现可靠性传输。
+TCP三次握手第一次握手：建立连接时，客户端发送syn包(syn=j)到服务器，并进入SYN_SEND状态，等待服务器确认；第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态；第三次握手：客户端收到服务器的SYN＋ACK包，向服务器发送确认包A...
+						
+					</div>
+					
+					<div class="post-meta">
+						<span>
+							发布于
+							<i>
+								
+
+
+
+
+
+
+	<a href="/2021/05/12/notes/network/Computer-Network/" itemprop="url">
+		<time datetime="2021-05-12T14:04:35.000Z" itemprop="datePublished">
+	  		2021-05-12
+	  </time>
+	</a> 
+
+							</i>
+						</span>
+						
+						
+
+
+
+						
+							<span class="right">      	
+								<a href="/2021/05/12/notes/network/Computer-Network/" title="阅读全文" external="false">阅读全文</a>	
+							</span>
+						
+					</div>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<div class="post-text">
+					<div class="post-title" id="post-title-index">			
+						
+	<a href="/2021/05/12/notes/java/Java%E5%B9%B6%E5%8F%91/" itemprop="url">
+		Java并发
+	</a>
+
+					</div>
+
+					<div class="post-content">
+						
+							什么是线程安全，怎么保证线程安全？线程安全可以简单理解为一个方法或者一个实例可以在多线程环境中使用而不会出现问题
+如何保证线程安全
+JAVA 线程状态转换图示线程共包括以下5种状态。
+
+新建状态(New)         : 线程对象被创建后，就进入了新建状态。例如，Thread thread = new Thread()。
+
+就绪状态(Runnable): 也被称为“可执行状态”。线程对象被创建后，其它线程调用了该对象的start()方法，从而来启动该线程。例如，thread.start()。处于就绪状态的线程，随时可能被CPU调度执行。
+
+运行状态(Running) : 线程获取CP...
+						
+					</div>
+					
+					<div class="post-meta">
+						<span>
+							发布于
+							<i>
+								
+
+
+
+
+
+
+	<a href="/2021/05/12/notes/java/Java%E5%B9%B6%E5%8F%91/" itemprop="url">
+		<time datetime="2021-05-12T14:04:35.000Z" itemprop="datePublished">
+	  		2021-05-12
+	  </time>
+	</a> 
+
+							</i>
+						</span>
+						
+						
+
+
+
+						
+							<span class="right">      	
+								<a href="/2021/05/12/notes/java/Java%E5%B9%B6%E5%8F%91/" title="阅读全文" external="false">阅读全文</a>	
+							</span>
+						
+					</div>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<div class="post-text">
+					<div class="post-title" id="post-title-index">			
+						
 	<a href="/2021/05/12/notes/algorithms/DataStructures-Algorithms/" itemprop="url">
 		DataStructures-Algorithms
 	</a>
@@ -606,113 +713,6 @@ Linux中软链接和硬链接的区别我们知道文件都有文件名与数据
 						
 							<span class="right">      	
 								<a href="/2021/05/12/notes/os/Linux/" title="阅读全文" external="false">阅读全文</a>	
-							</span>
-						
-					</div>
-				</div>
-			</div>
-		
-			<div class="post" id="post">
-				<div class="post-text">
-					<div class="post-title" id="post-title-index">			
-						
-	<a href="/2021/05/12/notes/os/Operating-System/" itemprop="url">
-		Operating-System
-	</a>
-
-					</div>
-
-					<div class="post-content">
-						
-							进程有哪些状态一般来说，进程有三个状态，即就绪状态，运行状态，阻塞状态。
-
-运行态：进程占用CPU，并在CPU上运行
-就绪态：进程已经具备运行条件，但是CPU还没有分配过来
-阻塞态：进程因等待某件事发生而暂时不能运行当然理论上上述三种状态之间转换分为六种情况；
-运行——&gt;就绪：1，主要是进程占用CPU的时间过长，而系统分配给该进程占用CPU的时间是有限的；2，在采用抢先式优先级调度算法的系统中,当有更高优先级的进程要运行时，该进程就被迫让出CPU，该进程便由执行状态转变为就绪状态。
-就绪——&gt;运行：运行的进程的时间片用完，调度就转到就绪队列中选择合适的进程分配CPU
-运行——...
-						
-					</div>
-					
-					<div class="post-meta">
-						<span>
-							发布于
-							<i>
-								
-
-
-
-
-
-
-	<a href="/2021/05/12/notes/os/Operating-System/" itemprop="url">
-		<time datetime="2021-05-12T03:58:17.000Z" itemprop="datePublished">
-	  		2021-05-12
-	  </time>
-	</a> 
-
-							</i>
-						</span>
-						
-						
-
-
-
-						
-							<span class="right">      	
-								<a href="/2021/05/12/notes/os/Operating-System/" title="阅读全文" external="false">阅读全文</a>	
-							</span>
-						
-					</div>
-				</div>
-			</div>
-		
-			<div class="post" id="post">
-				<div class="post-text">
-					<div class="post-title" id="post-title-index">			
-						
-	<a href="/2021/05/12/notes/framework/Kafka/" itemprop="url">
-		Kafka
-	</a>
-
-					</div>
-
-					<div class="post-content">
-						
-							Kafka介绍Kafka是最初由Linkedin公司开发，是一个分布式、支持分区的（partition）、多副本的（replica），基于zookeeper协调的分布式消息系统，它的最大的特性就是可以实时的处理大量数据以满足各种需求场景：比如基于hadoop的批处理系统、低延迟的实时系统、storm/Spark流式处理引擎，web/nginx日志、访问日志，消息服务等等，用scala语言编写，Linkedin于2010年贡献给了Apache基金会并成为顶级开源项目。
-Kafka特性
-高吞吐量、低延迟：kafka每秒可以处理几十万条消息，它的延迟最低只有几毫秒，每个topic可以分多个pa...
-						
-					</div>
-					
-					<div class="post-meta">
-						<span>
-							发布于
-							<i>
-								
-
-
-
-
-
-
-	<a href="/2021/05/12/notes/framework/Kafka/" itemprop="url">
-		<time datetime="2021-05-12T03:58:17.000Z" itemprop="datePublished">
-	  		2021-05-12
-	  </time>
-	</a> 
-
-							</i>
-						</span>
-						
-						
-
-
-
-						
-							<span class="right">      	
-								<a href="/2021/05/12/notes/framework/Kafka/" title="阅读全文" external="false">阅读全文</a>	
 							</span>
 						
 					</div>

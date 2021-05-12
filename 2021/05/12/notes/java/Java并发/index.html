@@ -208,7 +208,7 @@
 	更新于
 
 	<a href="/2021/05/12/notes/java/Java%E5%B9%B6%E5%8F%91/" itemprop="url">
-		<time datetime="2021-05-12T03:58:17.000Z" itemprop="dateUpdated">
+		<time datetime="2021-05-12T14:04:35.000Z" itemprop="dateUpdated">
 	  		2021-05-12
 	  </time>
 	</a> 
@@ -337,10 +337,15 @@
 <p><strong>要想并发程序正确地执行，必须要保证原子性、可见性以及有序性，锁保证了原子性，而volatile保证可见性和有序性</strong></p>
 <h3 id="volatile为什么不能保证原子性？"><a href="#volatile为什么不能保证原子性？" class="headerlink" title="volatile为什么不能保证原子性？"></a>volatile为什么不能保证原子性？</h3><p>修改volatile变量分为四步：</p>
 <ol>
-<li>读取volatile变量到local</li>
-<li>修改变量值</li>
-<li>local值写回</li>
-<li>插入内存屏障，即lock指令，让其他线程可见这样就很容易看出来<br>前三步都是不安全的，取值和写回之间，不能保证没有其他线程修改。原子性需要锁来保证。<br>并发编程中得了解的三个问题，可见性，原子性，有序性。volatile 原本的语义是禁用cpu缓存,也就是导致可见性的源头。原子性一般通过锁机制解决。<br>volatile 关键字通过内存屏障禁止了指令的重排序，并在单个核心中，强制数据的更新及时更新到缓存。在此基础上，依靠多核心处理器的缓存一致性协议等机制，保证了变量的可见性。<br>这里介绍几个状态协议，先从最简单的开始，MESI协议，这个协议跟那个著名的足球运动员梅西没什么关系，其主要表示缓存数据有四个状态：Modified（已修改）, Exclusive（独占的）,Shared（共享的），Invalid（无效的）。<br>MESI 这种协议在数据更新后，会标记其它共享的CPU缓存的数据拷贝为Invalid状态，然后当其它CPU再次read的时候，就会出现 cache miss 的问题，此时再从内存中更新数据。<h3 id="synchronized-和-volatile-的区别是什么？"><a href="#synchronized-和-volatile-的区别是什么？" class="headerlink" title="synchronized 和 volatile 的区别是什么？"></a>synchronized 和 volatile 的区别是什么？</h3></li>
+<li><p>读取volatile变量到local</p>
+</li>
+<li><p>修改变量值</p>
+</li>
+<li><p>local值写回</p>
+</li>
+<li><p>插入内存屏障，即lock指令，让其他线程可见</p>
+<p>这样就很容易看出来前三步都是不安全的，取值和写回之间，不能保证没有其他线程修改。原子性需要锁来保证。<br>并发编程中得了解的三个问题，可见性，原子性，有序性。volatile 原本的语义是禁用cpu缓存,也就是导致可见性的源头。原子性一般通过锁机制解决。<br>volatile 关键字通过内存屏障禁止了指令的重排序，并在单个核心中，强制数据的更新及时更新到缓存。在此基础上，依靠多核心处理器的缓存一致性协议等机制，保证了变量的可见性。<br>这里介绍几个状态协议，先从最简单的开始，MESI协议，这个协议跟那个著名的足球运动员梅西没什么关系，其主要表示缓存数据有四个状态：Modified（已修改）, Exclusive（独占的）,Shared（共享的），Invalid（无效的）。<br>MESI 这种协议在数据更新后，会标记其它共享的CPU缓存的数据拷贝为Invalid状态，然后当其它CPU再次read的时候，就会出现 cache miss 的问题，此时再从内存中更新数据。</p>
+<h3 id="synchronized-和-volatile-的区别是什么？"><a href="#synchronized-和-volatile-的区别是什么？" class="headerlink" title="synchronized 和 volatile 的区别是什么？"></a>synchronized 和 volatile 的区别是什么？</h3></li>
 </ol>
 <ul>
 <li>volatile 是变量修饰符；synchronized 可以修饰类、方法、变量。</li>
@@ -349,27 +354,40 @@
 <li>volatile标记的变量不会被编译器优化；synchronized标记的变量可以被编译器优化。<h2 id="happens-before-原则（先行发生原则）"><a href="#happens-before-原则（先行发生原则）" class="headerlink" title="happens-before 原则（先行发生原则）"></a>happens-before 原则（先行发生原则）</h2>我们无法就所有场景来规定某个线程修改的变量何时对其他线程可见，但是我们可以指定某些规则，这规则就是happens-before。特别关注在多线程之间的内存可见性。<br>它是判断数据是否存在竞争、线程是否安全的主要依据，依靠这个原则，我们解决在并发环境下两操作之间是否可能存在冲突的所有问题。</li>
 </ul>
 <ol>
-<li> 程序次序规则：一个线程内，按照代码顺序，书写在前面的操作先行发生于书写在<br>后面的操作</li>
+<li> 程序次序规则：一个线程内，按照代码顺序，书写在前面的操作先行发生于书写在后面的操作</li>
 <li>锁定规则：一个 unLock 操作先行发生于后面对同一个锁的 lock 操作</li>
 <li>volatile 变量规则：对一个变量的写操作先行发生于后面对这个变量的读操作</li>
-<li> 传递规则：如果操作 A 先行发生于操作 B，而操作 B 又先行发生于操作 C，则可以<br>得出操作 A 先行发生于操作 C</li>
+<li> 传递规则：如果操作 A 先行发生于操作 B，而操作 B 又先行发生于操作 C，则可以得出操作 A 先行发生于操作 C</li>
 <li> 线程启动规则：Thread 对象的 start()方法先行发生于此线程的每个一个动作</li>
-<li> 线程中断规则：对线程 interrupt()方法的调用先行发生于被中断线程的代码检测<br>到中断事件的发生</li>
-<li> 线程终结规则：线程中所有的操作都先行发生于线程的终止检测，我们可以通过 T<br>hread.join()方法结束、Thread.isAlive()的返回值手段检测到线程已经终止执行</li>
+<li> 线程中断规则：对线程 interrupt()方法的调用先行发生于被中断线程的代码检测到中断事件的发生</li>
+<li> 线程终结规则：线程中所有的操作都先行发生于线程的终止检测，我们可以通过 Thread.join()方法结束、Thread.isAlive()的返回值手段检测到线程已经终止执行</li>
 <li>对象终结规则：一个对象的初始化完成先行发生于他的 finalize()方法的开始<h3 id="as-if-serial规则和happens-before规则的区别"><a href="#as-if-serial规则和happens-before规则的区别" class="headerlink" title="as-if-serial规则和happens-before规则的区别"></a>as-if-serial规则和happens-before规则的区别</h3>as-if-serial语义保证单线程内程序的执行结果不被改变，happens-before关系保证正确同步的多线程程序的执行结果不被改变。<br>as-if-serial语义给编写单线程程序的程序员创造了一个幻境：单线程程序是按程序的顺序来执行的。happens-before关系给编写正确同步的多线程程序的程序员创造了一个幻境：正确同步的多线程程序是按happens-before指定的顺序来执行的。<br>as-if-serial语义和happens-before这么做的目的，都是为了在不改变程序执行结果的前提下，尽可能地提高程序执行的并行度。<h2 id="Lock-和synchronized-的区别"><a href="#Lock-和synchronized-的区别" class="headerlink" title="Lock 和synchronized 的区别"></a>Lock 和synchronized 的区别</h2></li>
 </ol>
 <ul>
-<li>Synchronized是关键字，是JVM层面的底层实现，而Lock是个接口，是JDK层面的有丰富API</li>
-<li>Synchronized会自动释放锁，而Lock必须手动释放锁</li>
-<li>Synchronized不可中断，Synchronized可以中断也可以不中断。</li>
-<li>通过Lock可以知道线程没有拿到锁，而Synchronized不可以</li>
-<li>Synchronized可以锁住方法和代码块，而Lock只能锁住代码块</li>
-<li>Synchronized是非公平锁，Lock是可以控制是否公平锁<h3 id="什么情况下可以使用-ReentrantLock"><a href="#什么情况下可以使用-ReentrantLock" class="headerlink" title="什么情况下可以使用 ReentrantLock"></a>什么情况下可以使用 ReentrantLock</h3></li>
-<li>使用synchronized 的一些限制：</li>
-<li>无法中断正在等候获取一个锁的线程；</li>
-<li>无法通过投票得到一个锁；</li>
-<li>释放锁的操作只能与获得锁所在的代码块中进行，无法在别的代码块中释放锁；</li>
-<li>ReentrantLock 没有以上的这些限制，且必须是手工释放锁。<h2 id="什么时候用重入锁，什么时候用非重入锁？"><a href="#什么时候用重入锁，什么时候用非重入锁？" class="headerlink" title="什么时候用重入锁，什么时候用非重入锁？"></a>什么时候用重入锁，什么时候用非重入锁？</h2>可重入锁，也叫做递归锁，指的是同一线程 外层函数获得锁之后 ，内层递归函数仍然有获取该锁的代码，但不受影响。<br>不可重入锁，也可以叫非递归锁，就是拿不到锁的情况会不停自旋循环检测来等待，不进入内核态沉睡，而是在用户态自旋尝试。</li>
+<li><p>Synchronized是关键字，是JVM层面的底层实现，而Lock是个接口，是JDK层面的有丰富API</p>
+</li>
+<li><p>Synchronized会自动释放锁，而Lock必须手动释放锁</p>
+</li>
+<li><p>Synchronized不可中断，Lock可以中断也可以不中断。</p>
+</li>
+<li><p>通过Lock可以知道线程没有拿到锁，而Synchronized不可以</p>
+</li>
+<li><p>Synchronized可以锁住方法和代码块，而Lock只能锁住代码块</p>
+</li>
+<li><p>Synchronized是非公平锁，Lock是可以控制是否公平锁</p>
+<h3 id="什么情况下可以使用-ReentrantLock"><a href="#什么情况下可以使用-ReentrantLock" class="headerlink" title="什么情况下可以使用 ReentrantLock"></a>什么情况下可以使用 ReentrantLock</h3><p>使用synchronized 的一些限制：</p>
+</li>
+<li><p>无法中断正在等候获取一个锁的线程；</p>
+</li>
+<li><p>无法通过投票得到一个锁；</p>
+</li>
+<li><p>释放锁的操作只能与获得锁所在的代码块中进行，无法在别的代码块中释放锁；</p>
+</li>
+<li><p>ReentrantLock 没有以上的这些限制，且必须是手工释放锁。</p>
+<h2 id="什么时候用重入锁，什么时候用非重入锁？"><a href="#什么时候用重入锁，什么时候用非重入锁？" class="headerlink" title="什么时候用重入锁，什么时候用非重入锁？"></a>什么时候用重入锁，什么时候用非重入锁？</h2></li>
+</ul>
+<p><strong>可重入锁</strong>，也叫做递归锁，指的是同一线程 外层函数获得锁之后 ，内层递归函数仍然有获取该锁的代码，但不受影响。<br><strong>不可重入锁</strong>，也可以叫非递归锁，就是拿不到锁的情况会不停自旋循环检测来等待，不进入内核态沉睡，而是在用户态自旋尝试。</p>
+<ul>
 <li> 可重入锁的作用就是为了避免死锁</li>
 <li> 非重入锁（自旋锁）比较适用于锁使用者保持锁时间比较短的情况，这种情况下自旋锁的效率要远高于互斥锁<h2 id="AQS是如何唤醒下一个线程的？"><a href="#AQS是如何唤醒下一个线程的？" class="headerlink" title="AQS是如何唤醒下一个线程的？"></a>AQS是如何唤醒下一个线程的？</h2>看出当前线程是否需要阻塞：</li>
 </ul>
@@ -485,16 +503,12 @@
 <li>运用线程池能有效的控制线程最大并发数，可以根据系统的承受能力，调整线程池中工作线线程的数目，防止因为消耗过多的内存，而把服务器累趴下(每个线程需要大约1MB内存，线程开的越多，消耗的内存也就越大，最后死机)。 </li>
 <li>对线程进行一些简单的管理，比如：延时执行、定时循环执行的策略等，运用线程池都能进行很好的实现<h3 id="线程池的非核心线程什么时候会被释放"><a href="#线程池的非核心线程什么时候会被释放" class="headerlink" title="线程池的非核心线程什么时候会被释放"></a>线程池的非核心线程什么时候会被释放</h3>当线程池中的线程数量大于 corePoolSize 的时候，如果这时没有新的任务提交，核心线程外的线程不会立即销毁，而是会等待，直到等待的时间超过 keepAliveTime。<h3 id="Executorshe和ThreaPoolExecutor创建线程池的区别"><a href="#Executorshe和ThreaPoolExecutor创建线程池的区别" class="headerlink" title="Executorshe和ThreaPoolExecutor创建线程池的区别"></a>Executorshe和ThreaPoolExecutor创建线程池的区别</h3></li>
 </ol>
-<ul>
-<li>Executors 各个方法的弊端：</li>
-</ul>
+<p><strong>Executors 各个方法的弊端：</strong></p>
 <ol>
 <li> newFixedThreadPool 和 newSingleThreadExecutor:<br>主要问题是堆积的请求处理队列可能会耗费非常大的内存，甚至 OOM。</li>
 <li>newCachedThreadPool 和 newScheduledThreadPool:<br>主要问题是线程数最大数是 Integer.MAX_VALUE，可能会创建数量非常多的线程，甚至 OOM。</li>
 </ol>
-<ul>
-<li>ThreaPoolExecutor</li>
-</ul>
+<p><strong>ThreaPoolExecutor</strong></p>
 <ol>
 <li>创建线程池方式只有一种，就是走它的构造函数，参数自己指定<h3 id="线程池ThreadPoolExecutor参数设置"><a href="#线程池ThreadPoolExecutor参数设置" class="headerlink" title="线程池ThreadPoolExecutor参数设置"></a>线程池ThreadPoolExecutor参数设置</h3>参数的设置跟系统的负载有直接的关系，下面为系统负载的相关参数：</li>
 </ol>
@@ -522,12 +536,12 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
-			<a href="/2021/05/12/notes/java/Java%E5%9F%BA%E7%A1%80/" title="Java基础" rel="prev">
+			<a href="/2021/05/12/notes/network/Computer-Network/" title="Computer-Network" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2021/05/12/notes/scene/Scene-Design/" title="Scene-Design" rel="next">
+			<a href="/2021/05/12/notes/algorithms/DataStructures-Algorithms/" title="DataStructures-Algorithms" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -613,6 +627,29 @@ Java集合类框架的基本接口有哪些？总共有两大接口：Collection
 							<a href="/2021/05/12/notes/java/Java%E5%9F%BA%E7%A1%80/" title="Java基础">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Java基础"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/05/12/notes/network/Computer-Network/" title="Computer-Network">
+								Computer-Network			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 12日, 2021				
+							</p>
+							<p class="relate-post-content">
+								TCPTCP（Transmission Control Protocol 传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议。TCP通过校验和、序列号、确认应答、重发控制、连接管理以及窗口控制等机制实现可靠性传输。
+T...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/05/12/notes/network/Computer-Network/" title="Computer-Network">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Computer-Network"/>
 							</a>
 						</div>
 					</li>												
@@ -759,28 +796,6 @@ GWS-Google(不对外开放)我们为什么选择Nginx？1. IO多路复用epol...
 							<a href="/2021/05/12/notes/framework/Solr/" title="Solr">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Solr"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/05/12/notes/framework/Tomcat/" title="Tomcat">
-								Tomcat			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								五月 12日, 2021				
-							</p>
-							<p class="relate-post-content">
-								Tomcat是什么？Tomcat 服务器Apache软件基金会项目中的一个核心项目，是一个免费的开放源代码的Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/05/12/notes/framework/Tomcat/" title="Tomcat">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Tomcat"/>
 							</a>
 						</div>
 					</li>												
