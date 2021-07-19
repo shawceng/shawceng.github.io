@@ -138,11 +138,6 @@
 		</li>
 		
 	
-		<li class="menu-tags">
-			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
-		</li>
-		
-	
 
 	
 </ul>
@@ -190,7 +185,7 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2021/05/12/notes/network/Computer-Network/" itemprop="url">
+	<a href="/2021/07/19/notes/network/Computer-Network/" itemprop="url">
 		Computer-Network
 	</a>
 
@@ -207,9 +202,9 @@
 
 	更新于
 
-	<a href="/2021/05/12/notes/network/Computer-Network/" itemprop="url">
-		<time datetime="2021-05-12T14:04:35.000Z" itemprop="dateUpdated">
-	  		2021-05-12
+	<a href="/2021/07/19/notes/network/Computer-Network/" itemprop="url">
+		<time datetime="2021-07-19T07:53:28.399Z" itemprop="dateUpdated">
+	  		2021-07-19
 	  </time>
 	</a> 
 
@@ -263,13 +258,19 @@
 <li> 主机每次发送数据时，TCP就给每个数据包分配一个序列号并且在一个特定的时间内等待接收主机对分配的这个序列号进行确认，</li>
 <li> 如果发送主机在一个特定时间内没有收到接收主机的确认，则发送主机会重传此数据包。</li>
 <li> 接收主机利用序列号对接收的数据进行确认，以便检测对方发送的数据是否有丢失或者乱序等，</li>
-<li> 接收主机一旦收到已经顺序化的数据，它就将这些数据按正确的顺序重组成数据流并传递到高层进行处理。<h3 id="TCP协议规定2MSL等待的原因"><a href="#TCP协议规定2MSL等待的原因" class="headerlink" title="TCP协议规定2MSL等待的原因"></a>TCP协议规定2MSL等待的原因</h3>1、保证TCP协议的全双工连接能够可靠关闭<br>2、保证这次连接的重复数据段从网络中消失<h2 id="TCP粘包和拆包"><a href="#TCP粘包和拆包" class="headerlink" title="TCP粘包和拆包"></a>TCP粘包和拆包</h2>TCP是个“流”协议，所谓流，就是没有界限的一串数据。TCP底层并不了解上层业务数据的具体含义，它会根据TCP缓冲区的实际情况进行包的划分，所以在业务上认为，一个完整的包可能会被TCP拆分成多个包进行发送，也有可能把多个小的包封装成一个大的数据包发送，这就是所谓的TCP粘包和拆包的问题。<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3>1、解决思路是在封装自己的包协议：包=包内容长度(4byte)+包内容</li>
+<li> 接收主机一旦收到已经顺序化的数据，它就将这些数据按正确的顺序重组成数据流并传递到高层进行处理。<h3 id="TCP协议规定2MSL等待的原因"><a href="#TCP协议规定2MSL等待的原因" class="headerlink" title="TCP协议规定2MSL等待的原因"></a>TCP协议规定2MSL等待的原因</h3></li>
+<li>保证TCP协议的全双工连接能够可靠关闭</li>
+<li>保证这次连接的重复数据段从网络中消失</li>
 </ol>
+<h2 id="TCP粘包和拆包"><a href="#TCP粘包和拆包" class="headerlink" title="TCP粘包和拆包"></a>TCP粘包和拆包</h2><p>TCP是个“流”协议，所谓流，就是没有界限的一串数据。TCP底层并不了解上层业务数据的具体含义，它会根据TCP缓冲区的实际情况进行包的划分，所以在业务上认为，一个完整的包可能会被TCP拆分成多个包进行发送，也有可能把多个小的包封装成一个大的数据包发送，这就是所谓的TCP粘包和拆包的问题。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>1、解决思路是在封装自己的包协议：包=包内容长度(4byte)+包内容</p>
 <ul>
 <li>对于粘包问题先读出包头即包体长度n，然后再读取长度为n的包内容，这样数据包之间的边界就清楚了。</li>
-<li>对于断包问题先读出包头即包体长度n，由于此次读取的缓存区长度小于n，这时候就需要先缓存这部分的内容，等待下次read事件来时拼接起来形成完整的数据包。<br>2、在包尾部增加回车或者空格符等特殊字符进行分割，典型的如FTP协议<br>3、其它复杂的协议，如RTMP协议等。<h3 id="TCP-NODELAY与Nagle算法"><a href="#TCP-NODELAY与Nagle算法" class="headerlink" title="TCP_NODELAY与Nagle算法"></a>TCP_NODELAY与Nagle算法</h3>传统的传输模式很容易将窄窄的带宽挤满而丢包，再重传、再丢包的恶性循环。<br>于是Nagle算法通过先把数据缓存起来再一起发送，减少需要传输的数据包，提高效率，唯一的不足是，可能会有一些延迟。<br>启动TCP_NODELAY，就意味着禁用了Nagle算法，允许小包的发送，数据传输非常少，延时较低。<h3 id="为什么UDP不会粘包"><a href="#为什么UDP不会粘包" class="headerlink" title="为什么UDP不会粘包"></a>为什么UDP不会粘包</h3></li>
+<li>对于断包问题先读出包头即包体长度n，由于此次读取的缓存区长度小于n，这时候就需要先缓存这部分的内容，等待下次read事件来时拼接起来形成完整的数据包。</li>
 </ul>
-<ol>
+<p>2、在包尾部增加回车或者空格符等特殊字符进行分割，典型的如FTP协议<br>3、其它复杂的协议，如RTMP协议等。</p>
+<h3 id="TCP-NODELAY与Nagle算法"><a href="#TCP-NODELAY与Nagle算法" class="headerlink" title="TCP_NODELAY与Nagle算法"></a>TCP_NODELAY与Nagle算法</h3><p>传统的传输模式很容易将窄窄的带宽挤满而丢包，再重传、再丢包的恶性循环。<br>于是Nagle算法通过先把数据缓存起来再一起发送，减少需要传输的数据包，提高效率，唯一的不足是，可能会有一些延迟。<br>启动TCP_NODELAY，就意味着禁用了Nagle算法，允许小包的发送，数据传输非常少，延时较低。</p>
+<h3 id="为什么UDP不会粘包"><a href="#为什么UDP不会粘包" class="headerlink" title="为什么UDP不会粘包"></a>为什么UDP不会粘包</h3><ol>
 <li>TCP协议是面向流的协议，UDP是面向消息的协议</li>
 <li>UDP段都是一条消息，应用程序必须以消息为单位提取数据，不能一次提取任意字节的数据</li>
 <li>UDP具有保护消息边界，在每个UDP包中就有了消息头（消息来源地址，端口等信息）<h2 id="TCP-Keepalive"><a href="#TCP-Keepalive" class="headerlink" title="TCP Keepalive"></a>TCP Keepalive</h2></li>
@@ -327,13 +328,16 @@
 <li>服务端接收到这个请求后,根据http1.0和”Connection： keep-alive“判断出这是一个长连接,就会在response的header中也增加”Connection： keep-alive“,同是不会关闭已建立的tcp连接.</li>
 <li>客户端收到服务端的response后,发现其中包含”Connection： keep-alive“，就认为是一个长连接，不关闭这个连接。并用该连接再发送request.转到a)<br>URI是以一种抽象的，高层次概念定义统一资源标识，URL是一种具体的URI，它是URI的一个子集，它不仅唯一标识资源，而且还提供了定位该资源的信息。<h2 id="HTTPS和HTTP的区别"><a href="#HTTPS和HTTP的区别" class="headerlink" title="HTTPS和HTTP的区别"></a>HTTPS和HTTP的区别</h2></li>
 <li>https协议需要到CA申请证书，一般免费证书很少，需要交费。</li>
-<li>http是超文本传输协议，信息是明文传输；https 则是具有安全性的ssl加密传输协 议。</li>
-<li>http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</li>
+<li>http是超文本传输协议，信息是明文传输；https 则是具有安全性的ssl加密传输协议。</li>
 <li>http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。</li>
 <li>http默认使用80端口，https默认使用443端口<h2 id="HTTP的缺点"><a href="#HTTP的缺点" class="headerlink" title="HTTP的缺点"></a>HTTP的缺点</h2></li>
 <li>通信使用明文（不加密） ， 内容可能会被窃听</li>
 <li>不验证通信方的身份， 因此有可能遭遇伪装</li>
-<li>无法证明报文的完整性， 所以有可能已遭篡改<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1>HTTPS 并非是应用层的一种新协议。 只是 HTTP 通信接口部分用SSL（Secure Socket Layer） 和 TLS（Transport Layer Security） 协议代替而已。<br>通常， HTTP 直接和 TCP 通信。 当使用 SSL时， 则演变成先和 SSL通信， 再由 SSL和 TCP 通信了。 简言之， 所谓 HTTPS， 其实就是身披SSL协议这层外壳的 HTTP。<br>SSL是独立于 HTTP 的协议， 所以不光是 HTTP 协议， 其他运行在应用层的 SMTP 和 Telnet 等协议均可配合 SSL协议使用。 可以说 SSL是当今世界上应用最为广泛的网络安全技术<h2 id="https是如何保证数据传输的安全"><a href="#https是如何保证数据传输的安全" class="headerlink" title="https是如何保证数据传输的安全"></a>https是如何保证数据传输的安全</h2>https实际就是在TCP层与http层之间加入了SSL/TLS来为上层的安全保驾护航，主要用到对称加密、非对称加密、证书，等技术进行客户端与服务器的数据加密传输，最终达到保证整个通信的安全性。<br><img src="/images/network-5.png"><h3 id="SSL-TLS"><a href="#SSL-TLS" class="headerlink" title="SSL/TLS"></a>SSL/TLS</h3></li>
+<li>无法证明报文的完整性， 所以有可能已遭篡改<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1></li>
+</ol>
+<p>HTTPS 并非是应用层的一种新协议。 只是 HTTP 通信接口部分用SSL（Secure Socket Layer） 和 TLS（Transport Layer Security） 协议代替而已。<br>通常， HTTP 直接和 TCP 通信。 当使用 SSL时， 则演变成先和 SSL通信， 再由 SSL和 TCP 通信了。 简言之， 所谓 HTTPS， 其实就是身披SSL协议这层外壳的 HTTP。<br>SSL是独立于 HTTP 的协议， 所以不光是 HTTP 协议， 其他运行在应用层的 SMTP 和 Telnet 等协议均可配合 SSL协议使用。 可以说 SSL是当今世界上应用最为广泛的网络安全技术</p>
+<h2 id="https是如何保证数据传输的安全"><a href="#https是如何保证数据传输的安全" class="headerlink" title="https是如何保证数据传输的安全"></a>https是如何保证数据传输的安全</h2><p>https实际就是在TCP层与http层之间加入了SSL/TLS来为上层的安全保驾护航，主要用到对称加密、非对称加密、证书，等技术进行客户端与服务器的数据加密传输，最终达到保证整个通信的安全性。<br><img src="/images/network-5.png"></p>
+<h3 id="SSL-TLS"><a href="#SSL-TLS" class="headerlink" title="SSL/TLS"></a>SSL/TLS</h3><ol>
 <li>SSL 是“Secure Sockets Layer”的缩写，中文叫做“安全套接层”</li>
 <li>因为原先互联网上使用的HTTP协议是明文的，存在很多缺点——比如传输内容会被偷窥（嗅探）和篡改。发明 SSL 协议，就是为了解决这些问题。<br>SSL 因为应用广泛，IETF 就把 SSL 标准化。标准化之后的名称改为 TLS（是“Transport Layer Security”的缩写），中文叫做“传输层安全协议”。所以两个是没区别的</li>
 </ol>
@@ -403,8 +407,12 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
+			<a href="/2021/07/19/notes/java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="Java虚拟机" rel="prev">
+				&laquo;上一篇
+			</a>
 		
-			<a href="/2021/05/12/notes/java/Java%E5%B9%B6%E5%8F%91/" title="Java并发" rel="next">
+		
+			<a href="/2021/07/19/notes/network/%E9%80%8F%E6%98%8E%E5%A4%9A%E7%BA%A7%E5%88%86%E6%B5%81%E7%B3%BB%E7%BB%9F/" title="" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -422,6 +430,102 @@
 <div class="relate-post">
 	
 		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/07/19/notes/%E8%AE%A4%E8%AF%81%E5%AE%89%E5%85%A8%E6%80%A7/" title="">
+											
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								认证
+认证（Authentication）
+系统如何正确分辨出操作用户的真实身份？
+
+
+通信信道上的认证：你和我建立通信连接之前，要先证明你是谁。在网络传输（Network）场景中的典型是基于 SSL/TLS 传输安全层的认证。
+通信...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/07/19/notes/%E8%AE%A4%E8%AF%81%E5%AE%89%E5%85%A8%E6%80%A7/" title="">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt=""/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/07/19/notes/java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="Java虚拟机">
+								Java虚拟机			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								JVM内存结构 VS Java内存模型 VS Java对象模型JVM内存结构Java代码是要运行在虚拟机上的，而虚拟机在执行Java程序的过程中会把所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，其中有些区域随着虚拟机...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/07/19/notes/java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="Java虚拟机">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Java虚拟机"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/07/19/notes/database/Redis/" title="Redis">
+								Redis			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Redis介绍Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。Redis 与其他 key - value 缓存产品有以下三个特点：
+
+Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/07/19/notes/database/Redis/" title="Redis">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Redis"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/07/19/notes/database/MySQL/" title="MySQL">
+								MySQL			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								数据库基础知识数据库的定义数据库：物理操作文件系统或其他形式文件类型的集合；实例：MySQL 数据库由后台线程以及一个共享内存区组成；在 MySQL 中，实例和数据库往往都是一一对应的，而我们也无法直接操作数据库，而是要通过数据库实例...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/07/19/notes/database/MySQL/" title="MySQL">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="MySQL"/>
+							</a>
+						</div>
+					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -566,102 +670,6 @@ GWS-Google(不对外开放)我们为什么选择Nginx？1. IO多路复用epol...
 							<a href="/2021/05/12/notes/framework/Nginx/" title="Nginx">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Nginx"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/05/12/notes/framework/Solr/" title="Solr">
-								Solr			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								五月 12日, 2021				
-							</p>
-							<p class="relate-post-content">
-								solr原理索引Solr/Lucene采用的是一种反向索引（倒排索引），所谓反向索引：就是从关键字到文档的映射过程，保存这种映射这种信息的索引称为反向索引
-
-左边保存的是字符串序列
-右边是字符串的文档（Document）编号链表，称为...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/05/12/notes/framework/Solr/" title="Solr">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Solr"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/05/12/notes/framework/Tomcat/" title="Tomcat">
-								Tomcat			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								五月 12日, 2021				
-							</p>
-							<p class="relate-post-content">
-								Tomcat是什么？Tomcat 服务器Apache软件基金会项目中的一个核心项目，是一个免费的开放源代码的Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/05/12/notes/framework/Tomcat/" title="Tomcat">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Tomcat"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/05/12/notes/os/Linux/" title="Linux">
-								Linux			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								五月 12日, 2021				
-							</p>
-							<p class="relate-post-content">
-								CPU 与内存CPU ( Central Processing Unit )是一块超大规模的集成电路板，是计算机的核心部件，承载着计算机的主要运算和控制功能，是计算机指令的最终解释模块和执行模块。
-linux内核map图http://...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/05/12/notes/os/Linux/" title="Linux">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Linux"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/05/12/notes/os/Operating-System/" title="Operating-System">
-								Operating-System			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								五月 12日, 2021				
-							</p>
-							<p class="relate-post-content">
-								进程有哪些状态一般来说，进程有三个状态，即就绪状态，运行状态，阻塞状态。
-
-运行态：进程占用CPU，并在CPU上运行
-就绪态：进程已经具备运行条件，但是CPU还没有分配过来
-阻塞态：进程因等待某件事发生而暂时不能运行当然理论上上述三种...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/05/12/notes/os/Operating-System/" title="Operating-System">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Operating-System"/>
 							</a>
 						</div>
 					</li>												
@@ -857,11 +865,6 @@ linux内核map图http://...
 		</li>
 		
 	
-		<li class="menu-tags">
-			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
-		</li>
-		
-	
 
 	
 </ul>
@@ -870,7 +873,7 @@ linux内核map图http://...
 	<div class="copyright">
 		<p>
 			 
-				&copy;2020 - 2021, content by Shawceng. All Rights Reserved.
+				&copy;2021, content by Shawceng. All Rights Reserved.
 			
 			
 				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
@@ -891,25 +894,32 @@ linux内核map图http://...
 </footer>
 		
 	<!-- Local or hitokoto! -->
-
-	
-<script src="/plugin/motto/motto.js"></script>
-
-	
-	<script type="text/javascript">
+ 
+	<!-- 现代写法，推荐 -->
+	<!-- 兼容低版本浏览器 (包括 IE)，可移除 -->
+	<script src="https://cdn.jsdelivr.net/npm/bluebird@3/js/browser/bluebird.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@2.0.3/fetch.min.js"></script>
+	<!--End-->
+	<script>
 		(function motto(){
-			let mottoText = getMingYanContent().split('</br> - </br>'),
-			
-			mottoTextContent = mottoText[0]?mottoText[0]:'请刷新...',
-			
-			mottoTextFrom = mottoText[1]?mottoText[1]:'one/一个';
-			
-			mottoTextContent = mottoTextContent.trim().substring(0, 100);
-		
-			$("#motto-content").html( mottoTextContent);
-			$("#motto-author").html( mottoTextFrom  );
-		})();	
-	</script>	
+			fetch('https://v1.hitokoto.cn/?c=d')
+				.then(function (res){
+				return res.json();
+			}).then(function (data) {
+				$("#motto-content").html( data.hitokoto?data.hitokoto:'请刷新...' );
+				
+				let	mottoAuthor =' ';
+					mottoAuthor += data.creator?data.creator:'一言';
+					mottoAuthor += "　/　";
+					mottoAuthor += data.from?data.from:'一言官网';
+					
+				$("#motto-author").html( mottoAuthor );
+			})
+			.catch(function (err) {
+				console.error(err);
+			})			
+		})();
+	</script>
 
 
 

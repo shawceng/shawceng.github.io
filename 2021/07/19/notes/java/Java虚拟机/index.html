@@ -138,11 +138,6 @@
 		</li>
 		
 	
-		<li class="menu-tags">
-			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
-		</li>
-		
-	
 
 	
 </ul>
@@ -190,7 +185,7 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2021/05/12/notes/java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" itemprop="url">
+	<a href="/2021/07/19/notes/java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" itemprop="url">
 		Java虚拟机
 	</a>
 
@@ -207,9 +202,9 @@
 
 	更新于
 
-	<a href="/2021/05/12/notes/java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" itemprop="url">
-		<time datetime="2021-05-12T03:58:17.000Z" itemprop="dateUpdated">
-	  		2021-05-12
+	<a href="/2021/07/19/notes/java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" itemprop="url">
+		<time datetime="2021-07-19T07:53:28.399Z" itemprop="dateUpdated">
+	  		2021-07-19
 	  </time>
 	</a> 
 
@@ -317,10 +312,10 @@ Java方法的参数和方法中的局部变量，可以作为root.<figure class=
 <li>显式装载， 通过class.forname()等方法，显式加载需要的类<br>Java类的加载是动态的，它并不会一次性将所有类全部加载后再运行，而是保证程序运行的基础类(像是基类)完全加载到jvm中，至于其他类，则在需要的时候才加载。这当然就是为了节省内存开销。<h2 id="什么是类加载器，类加载器有哪些"><a href="#什么是类加载器，类加载器有哪些" class="headerlink" title="什么是类加载器，类加载器有哪些?"></a>什么是类加载器，类加载器有哪些?</h2>实现通过类的权限定名获取该类的二进制字节流的代码块叫做类加载器。<br>主要有一下四种类加载器:</li>
 </ol>
 <ul>
-<li>启动类加载器(Bootstrap ClassLoader)用来加载java核心类库，无法被java程序直接引用。</li>
-<li>扩展类加载器(extensions class loader):它用来加载 Java 的扩展库。Java 虚拟机的实现会提供一个扩展库目录。该类加载器在此目录里面查找并加载 Java 类。</li>
-<li>系统类加载器（system class loader）：它根据 Java 应用的类路径（CLASSPATH）来加载 Java 类。一般来说，Java 应用的类都是由它来完成加载的。可以通过 ClassLoader.getSystemClassLoader()来获取它。</li>
-<li>用户自定义类加载器，通过继承 java.lang.ClassLoader类的方式实现。<h2 id="类装载的执行过程"><a href="#类装载的执行过程" class="headerlink" title="类装载的执行过程"></a>类装载的执行过程</h2>类装载分为以下 5 个步骤：</li>
+<li>启动类加载器(BootstrapClassLoader) 用来加载java核心类库 java_home/jre/lit/<strong>rt.jar</strong>，无法被java程序直接引用。</li>
+<li>扩展类加载器(ExtensionClassLoader ) 它用来加载 Java 的扩展库 java_home/jre/lib/<strong>ext/*.jar</strong>。Java 虚拟机的实现会提供一个扩展库目录。该类加载器在此目录里面查找并加载 Java 类。</li>
+<li>系统类加载器（SystemClassLoader）：它根据 Java 应用的类路径（CLASSPATH）来加载 Java 类。一般来说，Java 应用的类都是由它来完成加载的。可以通过 ClassLoader.getSystemClassLoader()来获取它。</li>
+<li>用户自定义类加载器(User-Definde ClassLoader)，比如字节码加密了，自定义calssloader来加载并解密,继承ClassLoader类并重写findClass方法。<h2 id="类装载的执行过程"><a href="#类装载的执行过程" class="headerlink" title="类装载的执行过程"></a>类装载的执行过程</h2>类装载分为以下 5 个步骤：</li>
 </ul>
 <ol>
 <li>加载：根据查找路径找到相应的 class 文件然后导入；</li>
@@ -468,12 +463,12 @@ TLAB空间主要有3个指针：_start、_top、_end。_start指针表示TLAB空
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
-			<a href="/2021/05/12/notes/database/Redis/" title="Redis" rel="prev">
+			<a href="/2021/07/19/notes/system-security/%E6%8E%88%E6%9D%83/" title="" rel="prev">
 				&laquo;上一篇
 			</a>
 		
 		
-			<a href="/2021/05/12/notes/database/MySQL/" title="MySQL" rel="next">
+			<a href="/2021/07/19/notes/network/Computer-Network/" title="Computer-Network" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -569,12 +564,40 @@ Java集合类框架的基本接口有哪些？总共有两大接口：Collection
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/05/12/notes/network/Computer-Network/" title="Computer-Network">
+							<a class="relate-post-title" href="/2021/07/19/notes/%E8%AE%A4%E8%AF%81%E5%AE%89%E5%85%A8%E6%80%A7/" title="">
+											
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								认证
+认证（Authentication）
+系统如何正确分辨出操作用户的真实身份？
+
+
+通信信道上的认证：你和我建立通信连接之前，要先证明你是谁。在网络传输（Network）场景中的典型是基于 SSL/TLS 传输安全层的认证。
+通信...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/07/19/notes/%E8%AE%A4%E8%AF%81%E5%AE%89%E5%85%A8%E6%80%A7/" title="">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt=""/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/07/19/notes/network/Computer-Network/" title="Computer-Network">
 								Computer-Network			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								五月 12日, 2021				
+								七月 19日, 2021				
 							</p>
 							<p class="relate-post-content">
 								TCPTCP（Transmission Control Protocol 传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议。TCP通过校验和、序列号、确认应答、重发控制、连接管理以及窗口控制等机制实现可靠性传输。
@@ -583,9 +606,55 @@ T...
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2021/05/12/notes/network/Computer-Network/" title="Computer-Network">				
+							<a href="/2021/07/19/notes/network/Computer-Network/" title="Computer-Network">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Computer-Network"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/07/19/notes/database/Redis/" title="Redis">
+								Redis			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Redis介绍Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。Redis 与其他 key - value 缓存产品有以下三个特点：
+
+Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/07/19/notes/database/Redis/" title="Redis">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Redis"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/07/19/notes/database/MySQL/" title="MySQL">
+								MySQL			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								数据库基础知识数据库的定义数据库：物理操作文件系统或其他形式文件类型的集合；实例：MySQL 数据库由后台线程以及一个共享内存区组成；在 MySQL 中，实例和数据库往往都是一一对应的，而我们也无法直接操作数据库，而是要通过数据库实例...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/07/19/notes/database/MySQL/" title="MySQL">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="MySQL"/>
 							</a>
 						</div>
 					</li>												
@@ -658,80 +727,6 @@ Abstract Factory，抽象工厂：提供一个创建一系列相关或相互依�
 							<a href="/2021/05/12/notes/design/Design-Patterns/" title="Design-Patterns">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Design-Patterns"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/05/12/notes/framework/MyBatis/" title="MyBatis">
-								MyBatis			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								五月 12日, 2021				
-							</p>
-							<p class="relate-post-content">
-								MyBatis介绍在介绍MyBatis之前先简单了解几个概念：ORM，JPA。
-ORMORM（Object-Relationship-Mapping）：是对象关系映射的意思，它是一种思想，是指将数据库中的每一行数据用对象的形式表现出来...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/05/12/notes/framework/MyBatis/" title="MyBatis">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="MyBatis"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/05/12/notes/framework/Nginx/" title="Nginx">
-								Nginx			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								五月 12日, 2021				
-							</p>
-							<p class="relate-post-content">
-								Nginx是什么？Nginx是一个开源且高性能、可靠的HTTP中间件、代理服务其他的HTTP服务：
-
-HTTPD-Apache基金会
-IIS-微软
-GWS-Google(不对外开放)我们为什么选择Nginx？1. IO多路复用epol...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/05/12/notes/framework/Nginx/" title="Nginx">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Nginx"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/05/12/notes/framework/Solr/" title="Solr">
-								Solr			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								五月 12日, 2021				
-							</p>
-							<p class="relate-post-content">
-								solr原理索引Solr/Lucene采用的是一种反向索引（倒排索引），所谓反向索引：就是从关键字到文档的映射过程，保存这种映射这种信息的索引称为反向索引
-
-左边保存的是字符串序列
-右边是字符串的文档（Document）编号链表，称为...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/05/12/notes/framework/Solr/" title="Solr">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Solr"/>
 							</a>
 						</div>
 					</li>												
@@ -927,11 +922,6 @@ GWS-Google(不对外开放)我们为什么选择Nginx？1. IO多路复用epol...
 		</li>
 		
 	
-		<li class="menu-tags">
-			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
-		</li>
-		
-	
 
 	
 </ul>
@@ -940,7 +930,7 @@ GWS-Google(不对外开放)我们为什么选择Nginx？1. IO多路复用epol...
 	<div class="copyright">
 		<p>
 			 
-				&copy;2020 - 2021, content by Shawceng. All Rights Reserved.
+				&copy;2021, content by Shawceng. All Rights Reserved.
 			
 			
 				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
@@ -961,25 +951,32 @@ GWS-Google(不对外开放)我们为什么选择Nginx？1. IO多路复用epol...
 </footer>
 		
 	<!-- Local or hitokoto! -->
-
-	
-<script src="/plugin/motto/motto.js"></script>
-
-	
-	<script type="text/javascript">
+ 
+	<!-- 现代写法，推荐 -->
+	<!-- 兼容低版本浏览器 (包括 IE)，可移除 -->
+	<script src="https://cdn.jsdelivr.net/npm/bluebird@3/js/browser/bluebird.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@2.0.3/fetch.min.js"></script>
+	<!--End-->
+	<script>
 		(function motto(){
-			let mottoText = getMingYanContent().split('</br> - </br>'),
-			
-			mottoTextContent = mottoText[0]?mottoText[0]:'请刷新...',
-			
-			mottoTextFrom = mottoText[1]?mottoText[1]:'one/一个';
-			
-			mottoTextContent = mottoTextContent.trim().substring(0, 100);
-		
-			$("#motto-content").html( mottoTextContent);
-			$("#motto-author").html( mottoTextFrom  );
-		})();	
-	</script>	
+			fetch('https://v1.hitokoto.cn/?c=d')
+				.then(function (res){
+				return res.json();
+			}).then(function (data) {
+				$("#motto-content").html( data.hitokoto?data.hitokoto:'请刷新...' );
+				
+				let	mottoAuthor =' ';
+					mottoAuthor += data.creator?data.creator:'一言';
+					mottoAuthor += "　/　";
+					mottoAuthor += data.from?data.from:'一言官网';
+					
+				$("#motto-author").html( mottoAuthor );
+			})
+			.catch(function (err) {
+				console.error(err);
+			})			
+		})();
+	</script>
 
 
 

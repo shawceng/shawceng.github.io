@@ -138,11 +138,6 @@
 		</li>
 		
 	
-		<li class="menu-tags">
-			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
-		</li>
-		
-	
 
 	
 </ul>
@@ -549,49 +544,50 @@ Monito...
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/05/12/notes/network/Computer-Network/" title="Computer-Network">
-								Computer-Network			
+							<a class="relate-post-title" href="/2021/07/19/notes/%E8%AE%A4%E8%AF%81%E5%AE%89%E5%85%A8%E6%80%A7/" title="">
+											
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								五月 12日, 2021				
+								七月 19日, 2021				
 							</p>
 							<p class="relate-post-content">
-								TCPTCP（Transmission Control Protocol 传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议。TCP通过校验和、序列号、确认应答、重发控制、连接管理以及窗口控制等机制实现可靠性传输。
-T...
+								认证
+认证（Authentication）
+系统如何正确分辨出操作用户的真实身份？
+
+
+通信信道上的认证：你和我建立通信连接之前，要先证明你是谁。在网络传输（Network）场景中的典型是基于 SSL/TLS 传输安全层的认证。
+通信...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2021/05/12/notes/network/Computer-Network/" title="Computer-Network">				
+							<a href="/2021/07/19/notes/%E8%AE%A4%E8%AF%81%E5%AE%89%E5%85%A8%E6%80%A7/" title="">				
 								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Computer-Network"/>
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt=""/>
 							</a>
 						</div>
 					</li>												
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/05/12/notes/java/Java%E5%B9%B6%E5%8F%91/" title="Java并发">
-								Java并发			
+							<a class="relate-post-title" href="/2021/07/19/notes/java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="Java虚拟机">
+								Java虚拟机			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								五月 12日, 2021				
+								七月 19日, 2021				
 							</p>
 							<p class="relate-post-content">
-								什么是线程安全，怎么保证线程安全？线程安全可以简单理解为一个方法或者一个实例可以在多线程环境中使用而不会出现问题
-如何保证线程安全
-JAVA 线程状态转换图示线程共包括以下5种状态。
-
-新建状态(New)         : 线程对象...
+								JVM内存结构 VS Java内存模型 VS Java对象模型JVM内存结构Java代码是要运行在虚拟机上的，而虚拟机在执行Java程序的过程中会把所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，其中有些区域随着虚拟机...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2021/05/12/notes/java/Java%E5%B9%B6%E5%8F%91/" title="Java并发">				
+							<a href="/2021/07/19/notes/java/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="Java虚拟机">				
 								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Java并发"/>
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Java虚拟机"/>
 							</a>
 						</div>
 					</li>												
@@ -787,11 +783,6 @@ JAVA 线程状态转换图示线程共包括以下5种状态。
 		</li>
 		
 	
-		<li class="menu-tags">
-			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
-		</li>
-		
-	
 
 	
 </ul>
@@ -800,7 +791,7 @@ JAVA 线程状态转换图示线程共包括以下5种状态。
 	<div class="copyright">
 		<p>
 			 
-				&copy;2020 - 2021, content by Shawceng. All Rights Reserved.
+				&copy;2021, content by Shawceng. All Rights Reserved.
 			
 			
 				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
@@ -821,25 +812,32 @@ JAVA 线程状态转换图示线程共包括以下5种状态。
 </footer>
 		
 	<!-- Local or hitokoto! -->
-
-	
-<script src="/plugin/motto/motto.js"></script>
-
-	
-	<script type="text/javascript">
+ 
+	<!-- 现代写法，推荐 -->
+	<!-- 兼容低版本浏览器 (包括 IE)，可移除 -->
+	<script src="https://cdn.jsdelivr.net/npm/bluebird@3/js/browser/bluebird.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@2.0.3/fetch.min.js"></script>
+	<!--End-->
+	<script>
 		(function motto(){
-			let mottoText = getMingYanContent().split('</br> - </br>'),
-			
-			mottoTextContent = mottoText[0]?mottoText[0]:'请刷新...',
-			
-			mottoTextFrom = mottoText[1]?mottoText[1]:'one/一个';
-			
-			mottoTextContent = mottoTextContent.trim().substring(0, 100);
-		
-			$("#motto-content").html( mottoTextContent);
-			$("#motto-author").html( mottoTextFrom  );
-		})();	
-	</script>	
+			fetch('https://v1.hitokoto.cn/?c=d')
+				.then(function (res){
+				return res.json();
+			}).then(function (data) {
+				$("#motto-content").html( data.hitokoto?data.hitokoto:'请刷新...' );
+				
+				let	mottoAuthor =' ';
+					mottoAuthor += data.creator?data.creator:'一言';
+					mottoAuthor += "　/　";
+					mottoAuthor += data.from?data.from:'一言官网';
+					
+				$("#motto-author").html( mottoAuthor );
+			})
+			.catch(function (err) {
+				console.error(err);
+			})			
+		})();
+	</script>
 
 
 
